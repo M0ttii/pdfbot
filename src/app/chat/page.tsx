@@ -10,12 +10,11 @@ const inter = Inter({
 
 export default function Chat(){
     return ( 
-        <main className="flex min-h-screen flex-col bg-[#161618] items-center justify-between lg:flex p-10">
-            <div className="flex w-full h-14 justify-between items-center bg-[#191919] p-5">
-                <span className="{inter.className} text-white">Hallo</span>
-            </div>
+        <main className="flex min-h-screen flex-col bg-[#343541] items-center justify-between lg:flex p-10">
             <div className="col-start-2 row-start-2 bg-white"></div>
-            <Input className="ml-40 mr-40"></Input>
+            <div className="flex w-full pl-80 pr-80">
+                <Input className="bg-[#40414F] border-0 drop-shadow p-8 placeholder:red" placeholder="Ask a question"></Input>
+            </div>
         </main>
     )
 }
