@@ -1,6 +1,6 @@
 [https://pdfbot.netlify.app](https://pdfbot.netlify.app)
 
-pdfbot is an application that allows you to upload PDF files using LLM (Large Language Model), analyze them and then ask questions about the content. Vicuna-7B is used. This repository conatins the frontend, the backend can be found here: coming
+pdfbot is an application that allows you to upload PDF files using Vicuna-7B, analyze them and then ask questions about the content. This repository conatins the frontend, the backend is provided by supabase and python: coming
 
 ## Getting Started
 
