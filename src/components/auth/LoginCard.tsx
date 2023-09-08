@@ -6,15 +6,19 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 var url = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
 var anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(url, anon)
+export const supabase = createClientComponentClient()
 
 export async function signInGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
-        provider: 'google'
+        provider: 'google',
+        options: {
+            redirectTo: `http://localhost:3000/auth/callback`
+        }
     })
 
 

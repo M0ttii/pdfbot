@@ -48,9 +48,6 @@ export default function Secondbar() {
                                     <PlusIcon className="mr-2 stroke-3"></PlusIcon>
                                     New PDF
                                 </Button>
-                                <Button variant="default" className="w-40 justify-start">
-                                    LogOut
-                                </Button>
                             </li>
                         </ul>
                         <h2 className="mb-2 pl-1 text-lg font-semibold tracking-tight">
