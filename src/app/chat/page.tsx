@@ -2,6 +2,7 @@ import ContentContainer from "@/components/chat/ContentContainer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Secondbar from "@/components/ui/navigation/secondbar";
+import Sidebar from "@/components/ui/navigation/sidebar";
 import { Inter } from 'next/font/google'
 
 const inter = Inter({
@@ -13,6 +14,7 @@ const inter = Inter({
 export default function Chat(){
     return (
         <div className="flex bg-black w-full h-full p-3">
+            <Sidebar></Sidebar>
             <Secondbar></Secondbar>
             <ContentContainer></ContentContainer>
         </div>

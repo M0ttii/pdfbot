@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "../button";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Input } from "../input";
+import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 
 export default function Secondbar() {
     const [open, setOpen] = useState(false);
@@ -46,6 +47,9 @@ export default function Secondbar() {
                                 <Button variant="default" className="w-40 justify-start">
                                     <PlusIcon className="mr-2 stroke-3"></PlusIcon>
                                     New PDF
+                                </Button>
+                                <Button variant="default" className="w-40 justify-start">
+                                    LogOut
                                 </Button>
                             </li>
                         </ul>

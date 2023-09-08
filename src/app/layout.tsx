@@ -22,7 +22,6 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
           <div className="flex h-screen">
-            <Sidebar></Sidebar>
             {children}
           </div>
         </ThemeProvider>
