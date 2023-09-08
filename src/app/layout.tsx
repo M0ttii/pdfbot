@@ -2,8 +2,8 @@ import Navbar from '@/components/ui/navigation/navbar'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import Layout from '@/components/ui/layout'
 import { ThemeProvider } from '@/components/theme-provider'
+import Sidebar from '@/components/ui/navigation/sidebar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,8 +21,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ThemeProvider attribute='class' defaultTheme='system' enableSystem>
-          <Layout></Layout>
-          {children}
+          <div className="flex h-screen">
+            <Sidebar></Sidebar>
+            {children}
+          </div>
         </ThemeProvider>
         </body>
     </html>
