@@ -19,7 +19,7 @@ export async function signInGoogle() {
         provider: 'google',
         options: {
             // redirectTo: process.env.BASE_URL + 'auth/callback'
-            redirectTo: "https://pdfbot.netlify.app/auth/callback"
+            redirectTo: process.env.NEXT_PUBLIC_CALLBACK_URL
         }
         
         
