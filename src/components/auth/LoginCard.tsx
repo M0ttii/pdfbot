@@ -1,6 +1,7 @@
 'use client'
 
-import { createClient } from "@supabase/supabase-js";
+
+import { getURL } from "next/dist/shared/lib/utils";
 import { Icons } from "../icons";
 import { Button } from "../ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../ui/card";
@@ -17,11 +18,13 @@ export async function signInGoogle() {
     const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-            redirectTo: `http://localhost:3000/auth/callback`
+            // redirectTo: process.env.BASE_URL + 'auth/callback'
+            redirectTo: process.env.NEXT_PUBLIC_CALLBACK_URL
         }
+        
+        
     })
-
-
+    console.log(process.env.CALLBACK_URL)
 }
 
 export function CreateAccount() {
@@ -35,7 +38,7 @@ export function CreateAccount() {
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className="grid grid-cols-2 gap-6">
-                    <Button variant="outline">
+                    <Button variant="outline" onClick={() => {console.log(getURL)}}>
                         <Icons.gitHub className="mr-2 h-4 w-4" />
                         Github
                     </Button>
