@@ -1,4 +1,4 @@
-'use client'
+
 import { buttonVariants } from "@/components/ui/button"
 
 import Link from "next/link";
@@ -6,10 +6,12 @@ import { useState } from "react";
 import { Button } from "../button";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Input } from "../input";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
+import { createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default function Secondbar() {
-    const [open, setOpen] = useState(false);
+    // const [open, setOpen] = useState(false);
+    const open = false;
     return (
         <div className="h-full pr-3">
             <div

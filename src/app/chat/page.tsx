@@ -3,7 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Secondbar from "@/components/ui/navigation/secondbar";
 import Sidebar from "@/components/ui/navigation/sidebar";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Inter } from 'next/font/google'
+import { cookies } from "next/headers";
+import { Database } from "../../../types/supabase";
 
 const inter = Inter({
     weight: '400',
@@ -11,7 +14,19 @@ const inter = Inter({
     subsets: ['latin'],
 })
 
-export default function Chat() {
+type Conversation = Database['public']['Tables']['conversations']['Row']
+
+export default async function Chat() {
+    const supabase = createServerComponentClient({ cookies });
+
+    const {data, error} = await supabase.from("conversations").select().returns<Conversation>();
+
+    if (error){
+        console.log("Error: " + error)
+    }
+    console.log("Data: " + data)
+    console.log("dfsdfsdf");
+
     return (
         <>
             <Sidebar></Sidebar>
