@@ -17,19 +17,17 @@ const inter = Inter({
 type Conversation = Database['public']['Tables']['conversations']['Row']
 
 export default async function Chat() {
-    const supabase = createServerComponentClient({ cookies });
+    const supabase = createServerComponentClient<Database>({ cookies });
 
-    const {data, error} = await supabase.from("conversations").select().returns<Conversation>();
+    const {data, error} = await supabase.from("conversations").select('*');
 
     if (error){
         console.log("Error: " + error)
     }
-    console.log("Data: " + data)
-    console.log("dfsdfsdf");
+    console.log("Dadta: " + data?.length);
 
     return (
         <>
-            <Sidebar></Sidebar>
             <div className="flex bg-black w-full h-full p-3">
                 <Secondbar></Secondbar>
                 <ContentContainer></ContentContainer>

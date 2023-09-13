@@ -8,6 +8,7 @@ import { PlusIcon } from "@radix-ui/react-icons";
 import { Input } from "../input";
 import { createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import LogoutIcon from "@/components/auth/logout";
 
 export default function Secondbar() {
     // const [open, setOpen] = useState(false);
@@ -61,6 +62,13 @@ export default function Secondbar() {
                                 <Entry title="Test2"></Entry>
                             </li>
                         </ul>
+                        <div className="absolute bottom-0">
+                            <form action="/auth/signout" method="post">
+                                <Button variant="outline" size="icon" type="submit">
+                                    <LogoutIcon className="bottom-0 hover:scale-125 transform transition duration-500"></LogoutIcon>
+                                </Button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
