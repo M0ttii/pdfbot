@@ -9,36 +9,27 @@ import { Input } from "../input";
 import { createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import LogoutIcon from "@/components/auth/logout";
+import { RealDatabase } from "../../../../types/supabase";
 
-export default function Secondbar() {
+
+
+export default async function Secondbar() {
+
+    const supabase = createServerComponentClient<RealDatabase>({ cookies });
+
+    const {data, error} = await supabase.from("conversations").select('*');
+
+    if(data){
+        console.log("Data: " + data[0].created_at)
+    }
+
     // const [open, setOpen] = useState(false);
     const open = false;
     return (
         <div className="h-full pr-3">
             <div
-                className={` ${open ? "lg:w-40" : "lg:w-60 "
-                    } h-full p-3 bg-[#242424] shadow duration-300 rounded-lg bg-gradient-to-r from-[#1A1A1A] to-[#101010]`}
-            >
+                className={`lg:w-60 h-full p-3 bg-[#242424] shadow duration-300 rounded-lg bg-gradient-to-r from-[#1A1A1A] to-[#101010]`}>
                 <div className="space-y-3">
-                    {/* <div className="flex items-center justify-between">
-                        <button onClick={() => setOpen(!open)}>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="w-6 h-6 text-white"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="M4 6h16M4 12h8m-8 6h16"
-                                />
-                            </svg>
-                        </button>
-                    </div> */}
-
                     <div className="flex-1">
                         <ul className="pb-8 pt-1 text-sm">
                             <li className="rounded-sm">
@@ -58,8 +49,17 @@ export default function Secondbar() {
                         </h2>
                         <ul className="pb-4 space-y-1 text-sm">
                             <li className="rounded-sm">
-                                <Entry title="Test"></Entry>
-                                <Entry title="Test2"></Entry>
+                                {data ? (
+                                    data.map(entry => 
+                                    <>
+                                    <Link href={"/chat/" + entry.id}>
+                                        <Entry title={entry.title}></Entry>
+                                    </Link>
+                                    </>
+                                    )
+                                ) : (
+                                    <span>sfsdf</span>
+                                )}
                             </li>
                         </ul>
                         <div className="absolute bottom-0">

@@ -1,12 +1,10 @@
+'use client'
 import ContentContainer from "@/components/chat/ContentContainer";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Secondbar from "@/components/ui/navigation/secondbar";
-import Sidebar from "@/components/ui/navigation/sidebar";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Inter } from 'next/font/google'
-import { cookies } from "next/headers";
-import { Database } from "../../../types/supabase";
+import { Conversation, RealDatabase } from "../../../types/supabase";
+import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const inter = Inter({
     weight: '400',
@@ -14,24 +12,12 @@ const inter = Inter({
     subsets: ['latin'],
 })
 
-type Conversation = Database['public']['Tables']['conversations']['Row']
-
 export default async function Chat() {
-    const supabase = createServerComponentClient<Database>({ cookies });
-
-    const {data, error} = await supabase.from("conversations").select('*');
-
-    if (error){
-        console.log("Error: " + error)
-    }
-    console.log("Dadta: " + data?.length);
+    
 
     return (
         <>
-            <div className="flex bg-black w-full h-full p-3">
-                <Secondbar></Secondbar>
-                <ContentContainer></ContentContainer>
-            </div>
+        <ContentContainer conversation_id={"0"}></ContentContainer>
         </>
         // <main className="flex min-h-screen flex-col bg-[#343541] items-center justify-between lg:flex p-10">
         //     <div className="col-start-2 row-start-2 bg-white"></div>
