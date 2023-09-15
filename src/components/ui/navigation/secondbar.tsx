@@ -1,26 +1,35 @@
-
+'use client'
 import { buttonVariants } from "@/components/ui/button"
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../button";
 import { PlusIcon } from "@radix-ui/react-icons";
 import { Input } from "../input";
-import { createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { createClientComponentClient, createRouteHandlerClient, createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import LogoutIcon from "@/components/auth/logout";
 import { RealDatabase } from "../../../../types/supabase";
+import { useAtom } from "jotai";
+import { conversationAtom } from "@/store";
 
 
 
-export default async function Secondbar() {
+export default function Secondbar() {
 
-    const supabase = createServerComponentClient<RealDatabase>({ cookies });
+    const [data, setData] = useAtom(conversationAtom)
+    useEffect(() => {
+        async function fetchData() {
+            const supabase = createClientComponentClient<RealDatabase>();
+            await supabase.from("conversations").select('*').then(d => {
+                setData(d.data);
+            })
+        }
+        fetchData();
+    })
 
-    const {data, error} = await supabase.from("conversations").select('*');
+    if (data) {
 
-    if(data){
-        console.log("Data: " + data[0].created_at)
+        console.log("Data: " + data)
     }
 
     // const [open, setOpen] = useState(false);
@@ -38,10 +47,12 @@ export default async function Secondbar() {
                         </ul>
                         <ul className="pb-8 text-sm">
                             <li className="rounden-sm flex justify-center">
-                                <Button variant="default" className="w-40 justify-start">
-                                    <PlusIcon className="mr-2 stroke-3"></PlusIcon>
-                                    New PDF
-                                </Button>
+                                <Link href={"/chat/0"} >
+                                    <Button variant="default" className="w-40 justify-start">
+                                        <PlusIcon className="mr-2 stroke-3"></PlusIcon>
+                                        New PDF
+                                    </Button>
+                                </Link>
                             </li>
                         </ul>
                         <h2 className="mb-2 pl-1 text-lg font-semibold tracking-tight">
@@ -50,12 +61,12 @@ export default async function Secondbar() {
                         <ul className="pb-4 space-y-1 text-sm">
                             <li className="rounded-sm">
                                 {data ? (
-                                    data.map(entry => 
-                                    <>
-                                    <Link href={"/chat/" + entry.id}>
-                                        <Entry title={entry.title}></Entry>
-                                    </Link>
-                                    </>
+                                    data.map(entry =>
+                                        <>
+                                            <Link href={"/chat/" + entry.id}>
+                                                <Entry title={entry.title}></Entry>
+                                            </Link>
+                                        </>
                                     )
                                 ) : (
                                     <span>sfsdf</span>

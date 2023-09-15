@@ -7,6 +7,8 @@ import { useCallback, useEffect, useState } from 'react';
 import { createClientComponentClient, createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { Conversation, RealDatabase, Tables } from '../../../types/supabase';
 import { useRouter } from 'next/navigation';
+import { useAtom } from 'jotai';
+import { conversationAtom } from '@/store';
 
 const inter = Inter({
     weight: '300',
@@ -18,17 +20,7 @@ const inter = Inter({
 //3KpCAz7Hwr5VPscU
 const ContentContainer: React.FunctionComponent<ContentProps> = ({ conversation_id}) => {
     const posts = [];
-    const [data, setData] = useState<Conversation[] | null>(null)
-    const supabase = createClientComponentClient<RealDatabase>();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const { data } = await supabase.from("conversations").select('*');
-            setData(data);
-        }
-
-        fetchData()
-    })
+    const [data, setData] = useAtom(conversationAtom)
 
     if (conversation_id == "0") {
         if (posts.length == 0) {
@@ -124,6 +116,7 @@ const MyDropzone = () => {
 }
 
 function uploadFile() {
+    
 
 }
 
